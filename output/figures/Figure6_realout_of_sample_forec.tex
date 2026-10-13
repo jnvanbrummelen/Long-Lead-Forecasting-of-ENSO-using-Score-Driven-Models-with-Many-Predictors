@@ -1,0 +1,88 @@
+\documentclass[crop,tikz]{standalone}% 'crop' is the default for v1.0, before it was 'preview'
+
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot,groupplots}
+
+\pgfplotsset{width=21cm, compat=1.16}
+\usetikzlibrary{calc, intersections, patterns}
+
+%\usepackage[scaled=0.9]{DejaVuSansMono}  
+%\usepackage{mathspec}
+%\renewcommand*\familydefault{\sfdefault} 
+%\usepackage[T1]{fontenc} 
+%\usepackage[cm]{sfmath}
+\usepackage{newtxtext}
+
+\makeatletter
+\newcommand*\short[1]{\expandafter\@gobbletwo\number\numexpr#1\relax}
+\makeatother
+
+\begin{document}
+ 
+
+\begin{tikzpicture}[scale=1]
+  \begin{groupplot}
+  [
+    group style={group size=3 by 1, vertical sep=85pt, horizontal sep = 45pt},%, x descriptions at=edge bottom, y descriptions at=edge left},
+    xtick pos=left,
+    ytick pos=left,
+    legend pos = south west,
+    xticklabel = {'\short{\year}-\month},
+    date coordinates in = x,
+    date ZERO = 1982-1-1,
+    xmin = {2024-01-01}, xmax = {2026-04-01},
+    xtick = {2024-04-01, 2024-10-01, 2025-04-01, 2025-10-01,2026-04-01},
+    minor xtick = {2024-01-01, 2024-02-01, 2024-03-01, 2024-04-01,  2024-05-01, 2024-06-01, 2024-07-01,2024-08-01, 2024-09-01, 2024-10-01, 2024-11-01, 2024-12-01, 2025-01-01, 2025-02-01, 2025-03-01, 2025-04-01, 2025-05-01,2025-06-01, 2025-07-01,2025-08-01, 2025-09-01,2025-10-01,2025-11-01, 2025-12-01,2026-01-01,2026-02-01,2026-03-01, 2026-04-01}, 
+    width = 17cm,
+    height = 13cm, 
+    label style={font=\LARGE},
+    legend style={font=\huge}, 
+    legend cell align={left},
+    title style={font=\Huge},
+    tick label style={font=\huge}  
+  ]
+\nextgroupplot[title = Only regressors, xticklabel = {'\short{\year}-\month}, ymin = -3, ymax=2.1, ytick distance = 1]   
+%\addlegendentry{Data}
+\addplot[color = black!80!white, line width=0.8mm, forget plot] table [x index=0, y index=1, col sep = comma, ] {../intermediary_data/realoutsample/demean_forecasts.csv};
+\addplot[color = red!85!white, line width=0.8mm, mark = *] table [x index=0, y index=7, col sep = comma] {../intermediary_data/realoutsample/demean_forecasts.csv};
+\addlegendentry{G2S}
+\addplot[color = blue!70!black, line width=0.8mm,mark = *] table [x index=0, y index=8, col sep = comma] {../intermediary_data/realoutsample/demean_forecasts.csv};
+\addlegendentry{G2S PCA}
+\addplot[color = green!70!black, line width=0.8mm,mark = *] table [x index=0, y index=9, col sep = comma] {../intermediary_data/realoutsample/demean_forecasts.csv};
+\addlegendentry{LASSO}
+\addplot[color = yellow!80!black, line width=0.8mm,mark = *] table [x index=0, y index=10, col sep = comma] {../intermediary_data/realoutsample/demean_forecasts.csv};
+\addlegendentry{LASSO PCA}
+\draw[line width=0.1mm,color = black!80!white] (axis cs:2024-01-01,0) -- (axis cs:2026-10-01,0);
+\draw [dashed] (axis cs:2024-10-01,-4) -- (axis cs:2024-10-01,4);
+%\addlegendentry{Gaussian}  
+\nextgroupplot[title = Seasonals, xticklabel = {'\short{\year}-\month}, ymin = -3, ymax=2.1, ytick distance = 1]   
+\draw [dashed] (axis cs:2024-10-01,-4) -- (axis cs:2024-10-01,4);
+%\addlegendentry{Data} 
+\addplot[color = black!80!white, line width=0.8mm, forget plot] table [x index=0, y index=1, col sep = comma] {../intermediary_data/realoutsample/demean_forecasts.csv};
+\addplot[color = red!85!white, line width=0.8mm, mark = *] table [x index=0, y index=2, col sep = comma] {../intermediary_data/realoutsample/demean_forecasts.csv};
+\addlegendentry{Only constant}
+\addplot[color = blue!70!black, line width=0.8mm, mark = *] table [x index=0, y index=3, col sep = comma] {../intermediary_data/realoutsample/demean_forecasts.csv};
+\addlegendentry{Seasonals}
+\addplot[color = green!70!black, line width=0.8mm, mark = *] table [x index=0, y index=4, col sep = comma] {../intermediary_data/realoutsample/demean_forecasts.csv};
+\addlegendentry{Seasonals + trend} 
+\draw[line width=0.1mm,color = black!80!white] (axis cs:2024-01-01,0) -- (axis cs:2026-10-01,0);
+\nextgroupplot[title = Seasonals + cycles, xticklabel = {'\short{\year}-\month}, ymin = -3, ymax=2.1, ytick distance = 1]   
+\draw [dashed] (axis cs:2024-10-01,-4) -- (axis cs:2024-10-01,4);
+%\addlegendentry{Data} 
+\addplot[color = black!80!white, line width=0.8mm, forget plot] table [x index=0, y index=1, col sep = comma] {../intermediary_data/realoutsample/demean_forecasts.csv};
+\addplot[color = red!85!white, line width=0.8mm, mark = *] table [x index=0, y index=5, col sep = comma] {../intermediary_data/realoutsample/demean_forecasts.csv};
+\addlegendentry{Seasonals + cycles} 
+\addplot[color = blue!70!black, line width=0.8mm, mark = *] table [x index=0, y index=6, col sep = comma] {../intermediary_data/realoutsample/demean_forecasts.csv};
+\addlegendentry{Seasonals + cycles + trend}   
+\addplot[color = green!70!black, line width=0.8mm, mark = *] table [x index=0, y index=11, col sep = comma] {../intermediary_data/realoutsample/demean_forecasts.csv};
+\addlegendentry{Seasonals + cycles + regressors G2S} 
+\addplot[color = yellow!80!black, line width=0.8mm, mark = *] table [x index=0, y index=12, col sep = comma] {../intermediary_data/realoutsample/demean_forecasts.csv};
+\draw[line width=0.1mm,color = black!80!white] (axis cs:2024-01-01,0) -- (axis cs:2026-10-01,0);
+\addlegendentry{Seasonals + cycles + regressors G2S PCA}  
+\end{groupplot}
+  %\node[scale =3.5] (title) at ($(group c1r1.center)+(0,7.5cm)$) {\textbf{Horizon 18}};
+\end{tikzpicture}
+\end{document}
+
+
+ 

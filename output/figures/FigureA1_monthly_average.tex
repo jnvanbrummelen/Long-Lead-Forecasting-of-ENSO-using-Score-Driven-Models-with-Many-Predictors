@@ -1,0 +1,42 @@
+\documentclass[crop,tikz]{standalone}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{sansmath}
+\usetikzlibrary{patterns,calc}
+\usepackage{newtxtext}
+
+\begin{document}
+
+\begin{tikzpicture}
+  \begin{axis}[
+    width=12cm,
+    height=8cm,
+    ymin=26.4, ymax=27.8,
+    ytick distance=0.2,
+    xtick=data,
+    xticklabels={jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec},
+    tick label style={font=\large},
+    label style={font=\Large},
+    axis lines=box,
+    tick align=outside,
+    minor tick num=0,
+    every axis plot/.append style={
+      thick, smooth, color=blue!70!black, mark=none
+    },
+    title style={font=\LARGE, yshift=8pt},
+    xticklabel style={
+      align=center,
+      yshift=-0.8ex,
+      text height=1.5ex,
+      text depth=0.25ex,
+    },
+    xtick pos=left,
+    ytick pos=left,
+    xmin=0.8, xmax=12.2,
+  ]
+\addplot[mark=none, very thick] table [x index=0, y index=1, col sep = comma] {../intermediary_data/insample/monthly_means.csv}; 
+  \end{axis}
+\end{tikzpicture}
+
+\end{document} 

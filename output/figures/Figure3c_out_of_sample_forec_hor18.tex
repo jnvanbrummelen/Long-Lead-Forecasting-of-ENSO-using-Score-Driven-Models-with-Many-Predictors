@@ -1,0 +1,134 @@
+\documentclass[crop,tikz]{standalone}% 'crop' is the default for v1.0, before it was 'preview'
+
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot,groupplots}
+
+\pgfplotsset{width=21cm, compat=1.16}
+\usetikzlibrary{calc, intersections, patterns}
+
+%\usepackage[scaled=0.9]{DejaVuSansMono}  
+%\usepackage{mathspec}
+%\renewcommand*\familydefault{\sfdefault} 
+%\usepackage[T1]{fontenc} 
+%\usepackage[cm]{sfmath}
+\usepackage{newtxtext}
+
+\begin{document}
+
+\begin{tikzpicture}[scale=1]
+  \begin{groupplot}
+  [
+    group style={group size=1 by 4, vertical sep=85pt, horizontal sep = 45pt},%, x descriptions at=edge bottom, y descriptions at=edge left},
+    xtick pos=left,
+    ytick pos=left,
+    xticklabel = {\year},
+    date coordinates in = x,
+    date ZERO = 1970-1-1,
+    xmin = {2005-06-01}, xmax = {2024-12-01},
+    xtick = {2006-01-01,2008-01-01,2010-01-01,2012-01-01,2014-01-01,2016-01-01,2018-01-01,2020-01-01,2022-01-01,2024-01-01},
+    minor xtick = {2007-01-01,2009-01-01,2011-01-01,2013-01-01,2015-01-01,2017-01-01,2019-01-01,2021-01-01,2023-01-01},
+    width = 22cm,
+    height = 12cm, 
+    label style={font=\LARGE},
+    title style={font=\Huge},
+    tick label style={font=\huge},
+    title = {Belgium}
+  ]
+\nextgroupplot[title = Regressors: LASSO, xticklabel = {\year}, ymin = -1.85, ymax=3.1, ytick distance = 1]   
+%\addlegendentry{Data}
+\filldraw[fill=blue!40!white, draw=white, opacity=0.2] (axis cs:2005-11-01,-2) rectangle (axis cs:2006-04-01,4);
+\filldraw[fill=red!40!white, draw=white, opacity=0.2] (axis cs:2006-09-01,-2) rectangle (axis cs:2007-02-01,4);    
+\filldraw[fill=blue!40!white, draw=white, opacity=0.2] (axis cs:2007-06-01,-2) rectangle (axis cs:2008-07-01,4);  
+\filldraw[fill=blue!40!white, draw=white, opacity=0.2] (axis cs:2008-11-01,-2) rectangle (axis cs:2009-04-01,4); 
+\filldraw[fill=red!40!white, draw=white, opacity=0.2] (axis cs:2009-07-01,-2) rectangle (axis cs:2010-04-01,4);
+\filldraw[fill=blue!40!white, draw=white, opacity=0.2] (axis cs:2010-06-01,-2) rectangle (axis cs:2012-05-01,4);  
+\filldraw[fill=red!40!white, draw=white, opacity=0.2] (axis cs:2014-10-01,-2) rectangle (axis cs:2016-05-01,4);
+\filldraw[fill=blue!40!white, draw=white, opacity=0.2] (axis cs:2016-08-01,-2) rectangle (axis cs:2017-01-01,4);  
+\filldraw[fill=blue!40!white, draw=white, opacity=0.2] (axis cs:2017-10-01,-2) rectangle (axis cs:2018-05-01,4); 
+\filldraw[fill=red!40!white, draw=white, opacity=0.2] (axis cs:2018-09-01,-2) rectangle (axis cs:2019-07-01,4);
+\filldraw[fill=blue!40!white, draw=white, opacity=0.2] (axis cs:2020-08-01,-2) rectangle (axis cs:2023-02-01,4);
+\filldraw[fill=red!40!white, draw=white, opacity=0.2] (axis cs:2023-05-01,-2) rectangle (axis cs:2024-05-01,4); 
+\addplot[color = black!80!white, line width=0.8mm] table [x index=0, y index=1, col sep = comma] {../intermediary_data/outsample/anomaly_forecasts/anomaly_forecasts_horizon18.csv};
+\addplot[color = red!70!black, line width=0.8mm] table [x index=0, y index=2, col sep = comma] {../intermediary_data/outsample/anomaly_forecasts/anomaly_forecasts_horizon18.csv};
+\draw[line width=0.1mm,color = black!80!white] (axis cs:1960-01-01,0) -- (axis cs:2026-10-01,0);
+%\addlegendentry{Gaussian}  
+\nextgroupplot[title = Regressors: G2S PCA, xticklabel = {\year}, ymin = -1.85, ymax=3.1, ytick distance = 1]   
+%\addlegendentry{Data} 
+\filldraw[fill=blue!40!white, draw=white, opacity=0.2] (axis cs:2005-11-01,-2) rectangle (axis cs:2006-04-01,4);
+\filldraw[fill=red!40!white, draw=white, opacity=0.2] (axis cs:2006-09-01,-2) rectangle (axis cs:2007-02-01,4);    
+\filldraw[fill=blue!40!white, draw=white, opacity=0.2] (axis cs:2007-06-01,-2) rectangle (axis cs:2008-07-01,4);  
+\filldraw[fill=blue!40!white, draw=white, opacity=0.2] (axis cs:2008-11-01,-2) rectangle (axis cs:2009-04-01,4); 
+\filldraw[fill=red!40!white, draw=white, opacity=0.2] (axis cs:2009-07-01,-2) rectangle (axis cs:2010-04-01,4);
+\filldraw[fill=blue!40!white, draw=white, opacity=0.2] (axis cs:2010-06-01,-2) rectangle (axis cs:2012-05-01,4);  
+\filldraw[fill=red!40!white, draw=white, opacity=0.2] (axis cs:2014-10-01,-2) rectangle (axis cs:2016-05-01,4);
+\filldraw[fill=blue!40!white, draw=white, opacity=0.2] (axis cs:2016-08-01,-2) rectangle (axis cs:2017-01-01,4);  
+\filldraw[fill=blue!40!white, draw=white, opacity=0.2] (axis cs:2017-10-01,-2) rectangle (axis cs:2018-05-01,4); 
+\filldraw[fill=red!40!white, draw=white, opacity=0.2] (axis cs:2018-09-01,-2) rectangle (axis cs:2019-07-01,4);
+\filldraw[fill=blue!40!white, draw=white, opacity=0.2] (axis cs:2020-08-01,-2) rectangle (axis cs:2023-02-01,4);
+\filldraw[fill=red!40!white, draw=white, opacity=0.2] (axis cs:2023-05-01,-2) rectangle (axis cs:2024-05-01,4); 
+\addplot[color = black!80!white, line width=0.8mm] table [x index=0, y index=1, col sep = comma] {../intermediary_data/outsample/anomaly_forecasts/anomaly_forecasts_horizon18.csv};
+\addplot[color = red!70!black, line width=0.8mm] table [x index=0, y index=3, col sep = comma] {../intermediary_data/outsample/anomaly_forecasts/anomaly_forecasts_horizon18.csv};
+\draw[line width=0.1mm,color = black!80!white] (axis cs:1960-01-01,0) -- (axis cs:2026-10-01,0);
+\nextgroupplot[title = Constant + seasonals + cycles, xticklabel = {\year}, ymin = -1.85, ymax=3.1, ytick distance = 1]
+\filldraw[fill=blue!40!white, draw=white, opacity=0.2] (axis cs:2005-11-01,-2) rectangle (axis cs:2006-04-01,4);
+\filldraw[fill=red!40!white, draw=white, opacity=0.2] (axis cs:2006-09-01,-2) rectangle (axis cs:2007-02-01,4);    
+\filldraw[fill=blue!40!white, draw=white, opacity=0.2] (axis cs:2007-06-01,-2) rectangle (axis cs:2008-07-01,4);  
+\filldraw[fill=blue!40!white, draw=white, opacity=0.2] (axis cs:2008-11-01,-2) rectangle (axis cs:2009-04-01,4); 
+\filldraw[fill=red!40!white, draw=white, opacity=0.2] (axis cs:2009-07-01,-2) rectangle (axis cs:2010-04-01,4);
+\filldraw[fill=blue!40!white, draw=white, opacity=0.2] (axis cs:2010-06-01,-2) rectangle (axis cs:2012-05-01,4);  
+\filldraw[fill=red!40!white, draw=white, opacity=0.2] (axis cs:2014-10-01,-2) rectangle (axis cs:2016-05-01,4);
+\filldraw[fill=blue!40!white, draw=white, opacity=0.2] (axis cs:2016-08-01,-2) rectangle (axis cs:2017-01-01,4);  
+\filldraw[fill=blue!40!white, draw=white, opacity=0.2] (axis cs:2017-10-01,-2) rectangle (axis cs:2018-05-01,4); 
+\filldraw[fill=red!40!white, draw=white, opacity=0.2] (axis cs:2018-09-01,-2) rectangle (axis cs:2019-07-01,4);
+\filldraw[fill=blue!40!white, draw=white, opacity=0.2] (axis cs:2020-08-01,-2) rectangle (axis cs:2023-02-01,4);
+\filldraw[fill=red!40!white, draw=white, opacity=0.2] (axis cs:2023-05-01,-2) rectangle (axis cs:2024-05-01,4); 
+\addplot[color = black!80!white, line width=0.8mm] table [x index=0, y index=1, col sep = comma] {../intermediary_data/outsample/anomaly_forecasts/anomaly_forecasts_horizon18.csv};
+%\addlegendentry{Data}
+\addplot[color = red!70!black, line width=0.8mm] table [x index=0, y index=4, col sep = comma] {../intermediary_data/outsample/anomaly_forecasts/anomaly_forecasts_horizon18.csv};
+%\addlegendentry{Gaussian}
+%\addlegendentry{Mixed Normal} 
+\nextgroupplot[title = Constant + seasonals + cycles + G2S PCA regressors, xticklabel = {\year}, ymin = -1.85, ymax=3.1, ytick distance = 1]   
+\filldraw[fill=blue!40!white, draw=white, opacity=0.2] (axis cs:2005-11-01,-2) rectangle (axis cs:2006-04-01,4);
+\filldraw[fill=red!40!white, draw=white, opacity=0.2] (axis cs:2006-09-01,-2) rectangle (axis cs:2007-02-01,4);    
+\filldraw[fill=blue!40!white, draw=white, opacity=0.2] (axis cs:2007-06-01,-2) rectangle (axis cs:2008-07-01,4);  
+\filldraw[fill=blue!40!white, draw=white, opacity=0.2] (axis cs:2008-11-01,-2) rectangle (axis cs:2009-04-01,4); 
+\filldraw[fill=red!40!white, draw=white, opacity=0.2] (axis cs:2009-07-01,-2) rectangle (axis cs:2010-04-01,4);
+\filldraw[fill=blue!40!white, draw=white, opacity=0.2] (axis cs:2010-06-01,-2) rectangle (axis cs:2012-05-01,4);  
+\filldraw[fill=red!40!white, draw=white, opacity=0.2] (axis cs:2014-10-01,-2) rectangle (axis cs:2016-05-01,4);
+\filldraw[fill=blue!40!white, draw=white, opacity=0.2] (axis cs:2016-08-01,-2) rectangle (axis cs:2017-01-01,4);  
+\filldraw[fill=blue!40!white, draw=white, opacity=0.2] (axis cs:2017-10-01,-2) rectangle (axis cs:2018-05-01,4); 
+\filldraw[fill=red!40!white, draw=white, opacity=0.2] (axis cs:2018-09-01,-2) rectangle (axis cs:2019-07-01,4);
+\filldraw[fill=blue!40!white, draw=white, opacity=0.2] (axis cs:2020-08-01,-2) rectangle (axis cs:2023-02-01,4);
+\filldraw[fill=red!40!white, draw=white, opacity=0.2] (axis cs:2023-05-01,-2) rectangle (axis cs:2024-05-01,4); 
+\addplot[color = black!80!white, line width=0.8mm] table [x index=0, y index=1, col sep = comma] {../intermediary_data/outsample/anomaly_forecasts/anomaly_forecasts_horizon18.csv};
+\addplot[color = red!70!black, line width=0.8mm] table [x index=0, y index=5, col sep = comma] {../intermediary_data/outsample/anomaly_forecasts/anomaly_forecasts_horizon18.csv};
+\draw[line width=0.1mm,color = black!80!white] (axis cs:1960-01-01,0) -- (axis cs:2026-10-01,0);
+  \end{groupplot}
+  \node[scale =3.5] (title) at ($(group c1r1.center)+(0,7.5cm)$) {\textbf{Horizon 18}};
+\end{tikzpicture}
+\end{document}
+
+
+
+\coordinate (insetPosition2) at (axis cs:2002-01-15,5.1);
+\draw[line width=0.15mm] (axis cs:2001-05-01,2.2) -- (axis cs:2001-09-01,2.2);
+\draw[line width=0.15mm] (axis cs:2001-05-01,6.1) -- (axis cs:2001-09-01,6.1);
+\draw[line width=0.15mm] (axis cs:2001-05-01,2.2) -- (axis cs:2001-05-01,6.1);
+\draw[line width=0.15mm] (axis cs:2001-09-01,2.2) -- (axis cs:2001-09-01,6.1);
+\draw[line width=0.15mm] (axis cs:2001-09-01,4.1) -- (axis cs:2002-01-15,5.1);
+
+
+\begin{axis}[at={(insetPosition2)},
+  anchor={outer south west},
+  footnotesize,
+  date coordinates in = x,
+  xmin = {2001-05-01}, xmax = {2001-09-01},
+  ymin = 2.2, ymax = 6.1,
+  width = 5.25cm,
+  height = 4.5cm,
+  ticks=none]
+   %small plot
+   \addplot[color = black!80!white, line width=0.10mm] table [x index=0, y index=1, col sep = comma] {PJMfiltered.csv};
+   \addplot[color = red!80!white, line width=0.15mm] table [x index=0, y index=4, col sep = comma] {PJMfiltered.csv};
+   \addplot[color = red!80!white, line width=0.15mm] table [x index=0, y index=2, col sep = comma] {PJMfiltered.csv};
+\end{axis}

@@ -1,0 +1,42 @@
+\begin{table}[t!]
+\centering
+\small
+\begin{tabularx}{1.00\textwidth}{@{\extracolsep{\stretch{1}}}lrrrrrr@{}}
+\toprule
+& \multicolumn{4}{c}{constant}& \multicolumn{2}{c}{seasonals + cycles} \\
+\cmidrule(lr){2-5}\cmidrule(lr){6-7}
+& \multicolumn{2}{c}{no PCA}& \multicolumn{2}{c}{PCA}& \multicolumn{1}{c}{no PCA}& \multicolumn{1}{c}{PCA} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-6}\cmidrule(lr){7-7}
+& G2S & LASSO & G2S & LASSO & G2S & G2S \\
+\cmidrule{2-7}
+\textit{horizon 1} & & & & & & \\
+LLH & 138.18 & 90.94 & -45.36 & 41.77 & 7.97 & -3.75 \\
+AIC & -154.37 & 938.12 & 136.72 & 352.45 & 18.06 & 41.50 \\
+BIC & 56.41 & 2873.10 & 216.20 & 1105.71 & 76.80 & 100.24 \\
+no. selected vars & 59 & 74 & 21 & 72 & 5 & 5 \\
+total vars & 558 & 558 & 216 & 216 & 558 & 216 \\
+ & & & & & & \\
+\textit{horizon 6} & & & & & & \\
+LLH & -43.61 & -9.40 & -117.45 & -70.86 & 6.91 & -3.63 \\
+AIC & 157.22 & 948.79 & 266.90 & 517.72 & 20.19 & 45.26 \\
+BIC & 278.16 & 2555.52 & 322.19 & 1167.32 & 78.93 & 110.92 \\
+no. selected vars & 33 & 57 & 14 & 51 & 5 & 7 \\
+total vars & 463 & 463 & 186 & 186 & 463 & 186 \\
+ & & & & & & \\
+\textit{horizon 12} & & & & & & \\
+LLH & -160.03 & -4.05 & -224.10 & -193.93 & -4.06 & -6.70 \\
+AIC & 366.05 & 734.10 & 470.19 & 691.85 & 38.13 & 43.41 \\
+BIC & 445.52 & 1988.38 & 508.20 & 1217.06 & 89.96 & 95.24 \\
+no. selected vars & 21 & 93 & 9 & 33 & 3 & 3 \\
+total vars & 361 & 361 & 150 & 150 & 361 & 150 \\
+ & & & & & & \\
+\textit{horizon 18} & & & & & & \\
+LLH & -207.82 & -253.72 & -260.31 & -267.17 & -12.92 & -9.67 \\
+AIC & 449.64 & 1077.43 & 536.63 & 766.35 & 51.84 & 55.34 \\
+BIC & 508.38 & 2062.20 & 564.27 & 1167.16 & 96.76 & 117.54 \\
+no. selected vars & 15 & 12 & 6 & 9 & 1 & 6 \\
+total vars & 283 & 283 & 114 & 114 & 283 & 114 \\
+ & & & & & & \\
+\bottomrule
+\end{tabularx}
+\end{table}
